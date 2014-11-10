@@ -4,7 +4,7 @@
   "authors": [
     "Arne Schlüter <aesthaddicts@gmail.com>"
   ],
-  "description": "Visualizes the results of the German Bundestagswahl against its results.",
+  "description": "Visualizes hate-crime in Berlin",
   "main": "app.js",
   "license": "MIT",
   "private": true,

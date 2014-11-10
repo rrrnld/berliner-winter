@@ -1,3 +1,2 @@
-# Data sources
-
-All data so far is taken from the [bundeswahlleiter-page](http://bundeswahlleiter.de/de/bundestagswahlen/fruehere_bundestagswahlen/).
+# What is this?
+A visualization of hate crime in Berlin, starting 2006.
