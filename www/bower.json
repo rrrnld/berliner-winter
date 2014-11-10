@@ -1,0 +1,18 @@
+{
+  "name": "election-visualizer",
+  "version": "0.0.1",
+  "authors": [
+    "Arne Schlüter <aesthaddicts@gmail.com>"
+  ],
+  "description": "Visualizes the results of the German Bundestagswahl against its results.",
+  "main": "app.js",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
