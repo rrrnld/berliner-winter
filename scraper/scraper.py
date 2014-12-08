@@ -42,8 +42,8 @@ class Scraper():
             article = {
                 'date': date.strip(),
                 'place': district,
-                'additional': additional,
-                'text': text.strip()
+                'additional_place': additional,
+                'description': text.strip()
             }
             articles.append(article)
 
