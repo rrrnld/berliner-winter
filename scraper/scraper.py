@@ -9,14 +9,17 @@ class Scraper():
         self.start = request.urlopen(index)
         self.base_url = parsed_url.scheme + "://" + parsed_url.netloc
 
-    def has_more_pages(self):
-        pass
+    def get_next_page(self, document):
+        nav_elem = document.select('.nav')[1]
 
-    def visit_next_page(self):
-        pass
+        if nav_elem.get_text().strip() == '>':
+            href = nav_elem.get('href')
+            return BeautifulSoup(request.urlopen(href))
+        else:
+            return None
 
-    def get_articles_on_page(self, url):
-        document = BeautifulSoup(request.urlopen(url))
+
+    def get_articles_on_page(self, document):
         article_tables = document.select('table[width="98%"]')
         articles = []
 
@@ -62,9 +65,12 @@ class Scraper():
         overview_urls = self.get_yearly_overviews()
         articles = []
 
-        return self.get_articles_on_page(overview_urls[0])
+        for url in overview_urls:
+            currentDoc = BeautifulSoup(request.urlopen(url))
 
-        # for url in overview_urls:
+            while currentDoc:
+                new_articles = self.get_articles_on_page(currentDoc)
+                articles.extend(new_articles)
+                currentDoc = self.get_next_page(currentDoc)
 
-        #     while self.has_more_pages():
-        #         self.visit_next_page()
+        return articles
