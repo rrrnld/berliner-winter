@@ -1,6 +1,9 @@
 www/bower_components
 !www/bower_components/.gitkeep
 
+# Ignore the SQLite database
+violence.db
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 from urllib import parse, request
 from datetime import date
+import re
 
 class Scraper():
 
@@ -9,6 +10,11 @@ class Scraper():
 
         self.start = request.urlopen(index)
         self.base_url = parsed_url.scheme + "://" + parsed_url.netloc
+
+        # dates are a bit dificult; usually they're formatted like YYYY-MM-DD,
+        # followed by a space character, but sometimes the day is missing or it's
+        # followed by another character…
+        self.date_matcher = re.compile('^(\d{4})-(\d{,2})(-(\d{,2}))?')
 
     def get_next_page(self, document):
         nav_elem = document.select('.nav')[1]
@@ -25,10 +31,17 @@ class Scraper():
         articles = []
 
         for table in article_tables:
-            # headlines are always YYYY-MM-DD Berlin-DISTRICT (+ sometimes additional info)
+            # headlines are always YYYY-MM-DD? Berlin-DISTRICT (+ sometimes additional info)
             headline = table.select('tr:first-child')[0].get_text()
 
-            year, month, day = headline[:headline.find(' ')].strip().split('-')
+            date_match = self.date_matcher.match(headline.strip())
+
+            try:
+                year, month, day = date_match.group(1,2,4)
+            except:
+                print('Failed for headline ' + headline)
+                raise
+
             places = headline[headline.find(' ') + 1:]
 
             if places.find(' ') == -1:
@@ -41,8 +54,9 @@ class Scraper():
             text = table.select('tr')[2].select('td')[1].get_text()
 
             article = {
-                'date': date.strip(),
-                'place': district,
+                'date': date(int(year), int(month), int(day) if day else 1),
+                'month_only': day is None,
+                'place': district.strip(),
                 'additional_place': additional,
                 'description': text.strip()
             }
@@ -67,11 +81,11 @@ class Scraper():
         articles = []
 
         for url in overview_urls:
-            currentDoc = BeautifulSoup(request.urlopen(url))
+            current_doc = BeautifulSoup(request.urlopen(url))
 
-            while currentDoc:
-                new_articles = self.get_articles_on_page(currentDoc)
+            while current_doc:
+                new_articles = self.get_articles_on_page(current_doc)
                 articles.extend(new_articles)
-                currentDoc = self.get_next_page(currentDoc)
+                current_doc = self.get_next_page(current_doc)
 
         return articles
