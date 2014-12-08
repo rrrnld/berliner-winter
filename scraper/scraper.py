@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 from urllib import parse, request
+from datetime import date
 
 class Scraper():
 
@@ -27,7 +28,7 @@ class Scraper():
             # headlines are always YYYY-MM-DD Berlin-DISTRICT (+ sometimes additional info)
             headline = table.select('tr:first-child')[0].get_text()
 
-            date = headline[:headline.find(' ')]
+            year, month, day = headline[:headline.find(' ')].strip().split('-')
             places = headline[headline.find(' ') + 1:]
 
             if places.find(' ') == -1:
@@ -35,9 +36,9 @@ class Scraper():
                 additional = None
             else:
                 district = places[:places.find(' ')]
-                additional = places[places.find(' ') + 1:]
+                additional = places[places.find(' ') + 1:].strip()
 
-            text = table.select('tr:nth-of-type(3)')[0].select('td:nth-of-type(2)')[0].get_text()
+            text = table.select('tr')[2].select('td')[1].get_text()
 
             article = {
                 'date': date.strip(),
