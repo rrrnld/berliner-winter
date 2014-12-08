@@ -82,6 +82,7 @@ for article in articles:
             digest
         )
         c.execute(insert_query, article_tuple)
+c.close()
 
 final_time = current_milli_time() - start_time
 print('All done in {} ms'.format(final_time))
