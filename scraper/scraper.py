@@ -35,7 +35,7 @@ class Scraper():
                 district = places[:places.find(' ')]
                 additional = places[places.find(' ') + 1:].strip()
 
-            text = table.select('tr:nth-of-type(3)')[0].select('td:nth-of-type(2)')[0].get_text()
+            text = table.select('tr')[2].select('td')[1].get_text()
 
             article = {
                 'date': date(int(year), int(month), int(day)),
@@ -67,5 +67,6 @@ class Scraper():
 
         # for url in overview_urls:
 
-        #     while self.has_more_pages():
+        #     while document:
         #         self.visit_next_page()
+        #         document = self.get_next_page()
