@@ -42,22 +42,14 @@ class Scraper():
                 print('Failed for headline ' + headline)
                 raise
 
-            places = headline[headline.find(' ') + 1:]
-
-            if places.find(' ') == -1:
-                district = places
-                additional = None
-            else:
-                district = places[:places.find(' ')]
-                additional = places[places.find(' ') + 1:].strip()
+            place = headline[headline.find(' ') + 1:]
 
             text = table.select('tr')[2].select('td')[1].get_text()
 
             article = {
                 'date': date(int(year), int(month), int(day) if day else 1),
                 'month_only': day is None,
-                'place': district.strip(),
-                'additional_place': additional,
+                'place': place.strip(),
                 'description': text.strip()
             }
             articles.append(article)

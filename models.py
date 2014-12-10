@@ -13,11 +13,10 @@ class Article(BaseModel):
     date = DateField(index=True)
     month_only = BooleanField(default=False)
     place = CharField()
-    additional_place = CharField(null=True)
     description = TextField()
     hash = BlobField(index=True)
 
 # Set up the tables
 def create_tables():
-    database.connect()
-    database.create_tables([Article])
+    db.connect()
+    db.create_tables([Article])

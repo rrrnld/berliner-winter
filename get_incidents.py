@@ -29,7 +29,6 @@ for article in articles:
     h = hashlib.sha256()
     h.update(str(article['date']).encode(encoding))
     h.update(article['place'].encode(encoding))
-    h.update((article['additional_place'] or '').encode(encoding))
     h.update(article['description'].encode(encoding))
     digest = h.digest()
 
@@ -41,7 +40,6 @@ for article in articles:
             date = article['date'],
             month_only = article['month_only'],
             place = article['place'],
-            additional_place = article['additional_place'],
             description = article['description'],
             hash = digest
         )
