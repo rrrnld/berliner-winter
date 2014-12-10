@@ -1,1 +1,2 @@
 beautifulsoup4==4.3.2
+peewee==2.4.4

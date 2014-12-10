@@ -5,6 +5,7 @@
 import sqlite3
 import hashlib
 import time
+from models import *
 from scraper.scraper import Scraper
 
 encoding = 'UTF-8'
@@ -12,10 +13,7 @@ encoding = 'UTF-8'
 # helper function for benchmarking
 current_milli_time = lambda: int(round(time.time() * 1000))
 
-#
-# this is where the logic starts:
-#
-
+# First crawl through the whole index and get all articles we can find
 print('Start crawling…')
 start_time = current_milli_time()
 scraper = Scraper()
@@ -23,43 +21,9 @@ articles = scraper.scrape()
 time_taken = current_milli_time() - start_time
 print('Found {} articles in {} ms'.format(len(articles), time_taken))
 
-conn = sqlite3.connect('violence.db')
-c = conn.cursor()
-
-# setup database schema
-c.execute('PRAGMA encoding = "{}"'.format(encoding))
-
-c.execute('''
-    CREATE TABLE IF NOT EXISTS incidents (
-        incident_id INTEGER PRIMARY KEY,
-        date TEXT,
-        month_only INTEGER,
-        place TEXT,
-        additional_place TEXT,
-        description TEXT,
-        hash
-    );
-''')
-
-c.execute('''
-    CREATE INDEX IF NOT EXISTS incidents_date
-    ON incidents (date);
-''')
-
-c.execute('''
-    CREATE INDEX IF NOT EXISTS incidents_hash
-    ON incidents (hash);
-''')
-
-# insert articles if necessary
-select_query = 'SELECT * FROM incidents WHERE hash=?'
-insert_query = '''
-    INSERT INTO incidents (
-        date, month_only, place, additional_place, description, hash
-    ) VALUES (?,?,?,?,?,?)
-'''
-
+# Now fill the database
 print('Starting database work')
+
 for article in articles:
     # build a hash so we can more easily find out if we have an article already
     h = hashlib.sha256()
@@ -69,20 +33,18 @@ for article in articles:
     h.update(article['description'].encode(encoding))
     digest = h.digest()
 
-    c.execute(select_query, (digest,))
-
-    # now if it's not in the database insert it
-    if (not c.fetchone()):
-        article_tuple = (
-            article['date'],
-            article['month_only'],
-            article['place'],
-            article['additional_place'],
-            article['description'],
-            digest
+    try:
+        Article.get(Article.hash == digest)
+    except:
+        # article not found
+        Article.create(
+            date = article['date'],
+            month_only = article['month_only'],
+            place = article['place'],
+            additional_place = article['additional_place'],
+            description = article['description'],
+            hash = digest
         )
-        c.execute(insert_query, article_tuple)
-c.close()
 
 final_time = current_milli_time() - start_time
 print('All done in {} ms'.format(final_time))
