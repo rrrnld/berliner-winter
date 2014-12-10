@@ -31,19 +31,16 @@ class Scraper():
         articles = []
 
         for table in article_tables:
-            # headlines are always YYYY-MM-DD? Berlin-DISTRICT (+ sometimes additional info)
+            # headlines are always YYYY-MM-DD? Berlin-DISTRICT
+            # sometimes they use Berlin followed by a space, usually by a dash;
+            # additionally maybe there is some information such as a
+            # train or bus station appended but often there isn't.
             headline = table.select('tr:first-child')[0].get_text()
 
             date_match = self.date_matcher.match(headline.strip())
 
-            try:
-                year, month, day = date_match.group(1,2,4)
-            except:
-                print('Failed for headline ' + headline)
-                raise
-
+            year, month, day = date_match.group(1,2,4)
             place = headline[headline.find(' ') + 1:]
-
             text = table.select('tr')[2].select('td')[1].get_text()
 
             article = {

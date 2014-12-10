@@ -34,8 +34,7 @@ for article in articles:
 
     try:
         Article.get(Article.hash == digest)
-    except:
-        # article not found
+    except Article.DoesNotExist:
         Article.create(
             date = article['date'],
             month_only = article['month_only'],
