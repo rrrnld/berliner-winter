@@ -30,7 +30,10 @@ def get_potential_places(article_place, article_body):
                 # we stop the match, so append the current match
                 places.append(current_match)
                 current_match = []
-                is_matching = False
+
+                # whe we're looking at a preposition again, just start new match
+                if tuple[1] not in ("APPR", "APPRART"):
+                    is_matching = False
         else:
             # start matching when we have a preposition
             if tuple[1] in ("APPR", "APPRART"):
