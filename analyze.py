@@ -96,8 +96,28 @@ def get_categories(article_body):
     return found_categories or ['other']
 
 def get_geoloc(query):
-    encoded_query = urlencode(query + ", Berlin")
-    url = "http://nominatim.openstreetmap.org/search?q=" + encoded_query + " + "&countrycodes=de&format=json&limit=1"
-    r = requests.get(url)
+    confidence_map = {
+        "ROOFTOP": 10,
+        "RANGE_INTERPOLATED": 7,
+        "GEOMETRIC_CENTER": 4,
+        "APPROXIMATE": 1
+    }
 
-    return(r.json()[0]["lat"], r.json()[0]["lon"])
+    params = {
+        "address": query + ", Berlin",
+        "components": "country:DE"
+    }
+
+    url = "http://maps.googleapis.com/maps/api/geocode/json?" + urlencode(params)
+    r = requests.get(url).json()["results"]
+
+    locations = []
+    for location in r:
+        print(location)
+        locations.append({
+            "lat": location["geometry"]["location"]["lat"],
+            "lng": location["geometry"]["location"]["lng"],
+            "confidence": confidence_map[location["geometry"]["location_type"]]
+        })
+
+    return locations

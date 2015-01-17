@@ -16,7 +16,17 @@ class Article(BaseModel):
     description = TextField()
     hash = BlobField(index=True)
 
+class Location(BaseModel):
+    """
+    A location describes the place an incident has happened
+    """
+    confidence = IntegerField()
+    lat = DoubleField()
+    lng = DoubleField()
+    match = CharField()
+    article = ForeignKeyField(Article)
+
 # Set up the tables
 def create_tables():
     db.connect()
-    db.create_tables([Article])
+    db.create_tables([Article, Location])
