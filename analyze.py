@@ -13,16 +13,14 @@ def get_potential_places(article_place, article_body):
     Returns a list of potential places as tuples with their part-of-speech tags
     for later filtering
     """
-    # remove punctuation
-    full_text = punctuation_regex.sub(" ", article_place + " " + article_body)
+    place_pos = tagger.tag(punctuation_regex.sub(" ", article_place).split())
+    text_pos = tagger.tag(punctuation_regex.sub(" ", article_body).split())
 
-    pos = tagger.tag(full_text.split())
-
-    # extract the places
-    places = []
+    # extract the places out of the full text
+    places = [place_pos]
     is_matching = False
     current_match = []
-    for tuple in pos:
+    for tuple in text_pos:
         if is_matching:
             # when we're matching, the phrases we're looking for look like
             # "Im S-Bahnhof Wedding"... the tags below mean
