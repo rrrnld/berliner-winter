@@ -1,8 +1,7 @@
-<<<<<<< HEAD
 import requests, json
-=======
-import re
-import string
+from urllib.parse import urlencode
+
+import re, string
 from nltk.tag.stanford import POSTagger
 
 tagger = POSTagger('./stanford-postagger-full-2014-10-26/models/german-fast.tagger',
@@ -76,14 +75,6 @@ def improve_potential_places(pos_tuples):
                 better_tuples.append(cleaner_list)
 
     return better_tuples
->>>>>>> place_extraction
-
-def get_district(article_headline):
-    """
-    Returns a geo-coded version of a district an article is about, based on its
-    headline.
-    """
-    pass
 
 def get_categories(article_body):
     """
@@ -105,8 +96,8 @@ def get_categories(article_body):
     return found_categories or ['other']
 
 def get_geoloc(query):
-    query.replace(" ", "%20")
-    url = "http://nominatim.openstreetmap.org/search?q=" + query + "%20Berlin" + "&countrycodes=de&format=json&limit=1"
+    encoded_query = urlencode(query + ", Berlin")
+    url = "http://nominatim.openstreetmap.org/search?q=" + encoded_query + " + "&countrycodes=de&format=json&limit=1"
     r = requests.get(url)
 
     return(r.json()[0]["lat"], r.json()[0]["lon"])
