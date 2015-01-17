@@ -2,7 +2,6 @@
 # Reachout Berlin homepage, checks if they're already in the database and inserts
 # them if needed.
 
-import sqlite3
 import hashlib
 import time
 from models import *
@@ -14,7 +13,7 @@ encoding = 'UTF-8'
 current_milli_time = lambda: int(round(time.time() * 1000))
 
 # First crawl through the whole index and get all articles we can find
-print('Start crawling…')
+print('Start crawling...')
 start_time = current_milli_time()
 scraper = Scraper()
 articles = scraper.scrape()
