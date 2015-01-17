@@ -50,26 +50,27 @@ def improve_potential_places(pos_tuples):
     for tuple_list in pos_tuples:
         # first, exluce empty lists
         if tuple_list:
-            cleaner = []
+            cleaner_list = []
 
             index = -1
             for tuple in tuple_list:
                 index += 1
 
                 # exclude articles ("the", "a"), they only introduce noise, but
-                # keep the wh
-                if tuple[1] is "ART":
+                # keep the list as a whole
+                if tuple[1] == "ART":
                     continue
 
-                # if we have numbers in the middle of our phrase, it's probably
-                # also not useful (as opposed to Krügerstr. 22)
-                if tuple[1] is "CARD" and index < len(tuple_list):
-                    cleaner_tuple = []
+                # if we have numbers in the middle of our phrase, probably the
+                # whole list is not useful (as opposed to e.g. Krügerstr. 22)
+                if tuple[1] == "CARD" and index < len(tuple_list):
+                    cleaner_list = []
                     break
 
-                cleaner.append(tuple)
+                cleaner_list.append(tuple)
 
-            better_tuples.append(cleaner)
+            if cleaner_list:
+                better_tuples.append(cleaner_list)
 
     return better_tuples
 
