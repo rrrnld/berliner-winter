@@ -2,7 +2,11 @@ import time
 from models import *
 from analyze import *
 
-for article in Article.select().limit(5):
+print("Start geocoding...")
+start_time = time.time()
+articles = Article.select()
+
+for article in articles:
     potential = get_potential_places(article.place, article.description)
     places = improve_potential_places(potential)
 
@@ -19,4 +23,7 @@ for article in Article.select().limit(5):
             location["match"] = query
             Location.create(**location)
 
-        # time.sleep(1)
+        time.sleep(1)
+
+time_taken = time.time() - start_time
+print("Geocoded {} articles in {} seconds".format(articles.count(), time_taken))
