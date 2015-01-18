@@ -93,7 +93,7 @@ def get_categories(article_body):
     }
     found_categories = [bad_words[key] for key in bad_words
                                         if key in article_body.lower()]
-    return found_categories or ['other']
+    return found_categories
 
 def get_geoloc(query):
     confidence_map = {
@@ -104,8 +104,9 @@ def get_geoloc(query):
     }
 
     params = {
-        "address": query + ", Berlin",
-        "components": "country:DE"
+        "address": query,
+        "components": "country:DE|administrative_area:Berlin",
+        "sensor": False
     }
 
     url = "http://maps.googleapis.com/maps/api/geocode/json?" + urlencode(params)
