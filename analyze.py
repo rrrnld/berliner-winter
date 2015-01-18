@@ -58,9 +58,9 @@ def improve_potential_places(pos_tuples):
             for tuple in tuple_list:
                 index += 1
 
-                # exclude articles ("the", "a"), they only introduce noise, but
-                # keep the list as a whole
-                if tuple[1] == "ART":
+                # exclude articles ("the", "a") beginning the phrase, they only
+                # introduce noise, but keep the list as a whole
+                if tuple[1] == "ART" and index == 0:
                     continue
 
                 # if we have numbers in the middle of our phrase, probably the
@@ -104,8 +104,9 @@ def get_geoloc(query):
     }
 
     params = {
-        "address": query,
-        "components": "country:DE|administrative_area:Berlin",
+        "address": query + ", Berlin",
+        "bounds": "52.6754542,13.7611176|52.33962959999999,13.0891553",
+        "components": "country:DE",
         "sensor": False
     }
 
