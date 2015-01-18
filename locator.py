@@ -18,6 +18,8 @@ for article in articles:
 
         locations = get_geoloc(query)
 
+        # TODO: Only insert matches that have a higher confidence than current
+        # ones
         for location in locations:
             location["article"] = article
             location["match"] = query
