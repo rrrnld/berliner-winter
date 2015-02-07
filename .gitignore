@@ -1,5 +1,5 @@
-www/bower_components
-!www/bower_components/.gitkeep
+static/bower_components
+!static/bower_components/.gitkeep
 
 # Ignore the SQLite database
 violence.db
