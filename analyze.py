@@ -119,7 +119,8 @@ def get_geoloc(query):
         locations.append({
             "lat": location["geometry"]["location"]["lat"],
             "lng": location["geometry"]["location"]["lng"],
-            "confidence": confidence_map[location["geometry"]["location_type"]]
+            "confidence": confidence_map[location["geometry"]["location_type"]],
+            "returned_place": location["formatted_address"]
         })
 
     return locations

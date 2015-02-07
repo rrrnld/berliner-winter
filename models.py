@@ -24,6 +24,7 @@ class Location(BaseModel):
     lat = DoubleField()
     lng = DoubleField()
     match = CharField()
+    returned_place = CharField()
     article = ForeignKeyField(Article)
 
 class Category(BaseModel):
