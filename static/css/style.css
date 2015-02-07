@@ -32,6 +32,10 @@ body {
     list-style: none;
 }
 
+#filter-picker a {
+    pointer-events: auto;
+}
+
 .year-filter li {
     display: inline-block;
 }
@@ -73,7 +77,7 @@ body {
     text-decoration: none;
     color: #333;
     padding: 6px;
-    text-shadow: 0 0 20px rgba(255,255,255,.8);
+    text-shadow: 0 0 20px 20px rgba(255,255,255,.8);
     position: relative;
 }
 
