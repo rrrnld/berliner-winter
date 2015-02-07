@@ -7,15 +7,6 @@ class BaseModel(Model):
     class Meta:
         database = db
 
-    def __str__(self):
-        r = {}
-        for k in self._data.keys():
-            try:
-                r[k] = str(getattr(self, k))
-            except:
-                r[k] = json.dumps(getattr(self, k))
-        return str(r)
-
 class Article(BaseModel):
     """
     An article is a single incident as crawled from the reach-out webpage
