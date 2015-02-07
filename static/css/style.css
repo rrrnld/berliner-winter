@@ -2,6 +2,11 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
+    font-family: 'Lora', serif;
+}
+
+*, *:before, *:after {
+    box-sizing: border-box;
 }
 
 body {
@@ -11,4 +16,41 @@ body {
 
 #map {
     height: 100%;
+}
+
+#year-picker {
+    position: absolute;
+    z-index: 10;
+    top: 6px;
+    right: 6px;
+}
+
+#year-picker ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#year-picker li {
+    display: inline-block;
+}
+
+#year-picker a {
+    display: block;
+    width: 72px;
+    padding: 12px;
+    margin: 3px;
+    background: #222;
+    text-decoration: none;
+    color: #ddd;
+    text-align: center;
+    transition: background .3s ease;
+}
+
+#year-picker a:hover {
+    background: #333;
+}
+
+#year-picker .active a {
+    background: #444;
 }

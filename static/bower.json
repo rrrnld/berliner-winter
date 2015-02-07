@@ -16,6 +16,6 @@
     "tests"
   ],
   "dependencies": {
-    "leaflet-dist": "~0.7.2"
+    "lodash": "~3.1.0"
   }
 }
