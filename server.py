@@ -49,22 +49,26 @@ def articles():
                             JOIN category ON article.id = category.article_id
                        """)
 
-    articles = []
+    articles = {}
     for article in c.fetchall():
         article_id = article[0]
         if locations.get(article_id):
-            articles.append({
-                "id":           article_id,
-                "date":         article[1],
-                "place":        article[2],
-                "description":  article[3],
-                "category":     article[4],
-                "lat":          locations[article_id][0],
-                "lng":          locations[article_id][1],
-                "place":        locations[article_id][2]
-            })
+            if articles.get(article_id):
+                articles[article_id]["categories"].append(article[4])
+            else:
+                articles[article_id] = {
+                    "id":           article_id,
+                    "date":         article[1],
+                    "place":        article[2],
+                    "description":  article[3],
+                    "categories":   [article[4]],
+                    "lat":          locations[article_id][0],
+                    "lng":          locations[article_id][1],
+                    "place":        locations[article_id][2]
+                }
     conn.close()
-    return json.dumps(articles)
+
+    return json.dumps([article for article_id, article in articles.items()])
 
 @bottle.get('/static/<filepath:path>')
 def server_static(filepath):
