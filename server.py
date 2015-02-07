@@ -6,26 +6,6 @@ import json
 def index():
     return bottle.template('index')
 
-# @bottle.get("/locations/<article_id:int>")
-# def location(article_id):
-#     return (Location
-#         .select()
-#         .where(Location.article == article_id)
-#         .order_by(Location.confidence.desc(), Location.id.asc())
-#         .dicts()
-#         .get())
-
-# @bottle.get("/categories/<article_id:int>")
-# def category(article_id):
-#     categories = (Category
-#         .select()
-#         .where(Category.article == article_id))
-
-#     return {
-#         "article": article_id,
-#         "categories": [c.name for c in categories]
-#     }
-
 @bottle.get("/articles/")
 def articles():
     conn = sqlite3.connect('violence.db')
