@@ -21,8 +21,34 @@
       console.log('Got data successfully!');
       response = data;
 
-      displayAll();
+      displayMarkers(response);
     });
+
+  // event handling / user interaction
+  var $categoryList = $('.category-filter');
+
+  function getActiveCategories ($li) {
+    var activeCategories = [];
+    $categoryList.children().each(function () {
+      var $li = $(this);
+      if ($li.hasClass('active'))
+        activeCategories.push($li[0].classList[0])
+    });
+
+    return activeCategories;
+  }
+
+  $categoryList.on('click', 'a', function (e) {
+    $(this).parent().toggleClass('active');
+
+    var categories = getActiveCategories();
+    var incidents = filterByCategories(categories);
+    displayMarkers(incidents);
+
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  })
 
   // logic for drawing follows
 
@@ -39,11 +65,32 @@
   }
 
   /**
-   * Display all incidents at once
+   * Clear the map and render new markers
+   * @param  {Array[Object]} data The incidents to be shown
    */
-  function displayAll () {
-    for (var i = 0, l = response.length; i < l; i++) {
-      markers.push(createMarker(response[i]).bindPopup(response[i].description));
-    }
+  function displayMarkers (incidents) {
+    markers.forEach(function (marker) {
+      map.removeLayer(marker);
+    });
+    markers = [];
+
+    incidents.forEach(function (incident) {
+      markers.push(createMarker(incident).bindPopup(incident.description));
+    });
+  }
+
+  /**
+   * Returns only the incidents which fall into the given categories
+   * @param  {Array[String]} categories
+   * @return {Arreay[Obect]}
+   */
+  function filterByCategories (categories) {
+    return response.filter(function (incident) {
+      for (var i = 0, l = incident.categories.length; i < l; i++)
+        if (categories.indexOf(incident.categories[i]) !== -1)
+          return true;
+
+      return false;
+    });
   }
 })();

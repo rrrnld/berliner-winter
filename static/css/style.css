@@ -67,6 +67,7 @@ body {
 .category-filter li {
     margin: 12px 0;
     opacity: .5;
+    transition: opacity .3s ease;
 }
 
 .category-filter li.active {
