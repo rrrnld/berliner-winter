@@ -9,3 +9,9 @@ In order to set up the tables you have to create them first. This is done quite 
 from models import *
 create_tables()
 ```
+
+## Interesting statistics
+1. How often did violence occur?
+2. Where did it occur the most?
+3. How do we categorize it?
+4. How many did occur close train stations?
