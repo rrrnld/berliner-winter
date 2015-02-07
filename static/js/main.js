@@ -9,6 +9,10 @@
   var layer = new L.StamenTileLayer('toner-lite');
   map.addLayer(layer);
 
+  // restrict viewable area
+  map.setMaxBounds(map.getBounds());
+  map.options.minZoom = map.getZoom();
+
   // get response from server and draw the map
   var response;
   $.getJSON('/articles/')
