@@ -7,8 +7,8 @@
     <link href='http://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
 </head>
 <body>
-    <nav id="year-picker">
-        <ul>
+    <nav id="filter-picker">
+        <ul class="year-filter">
             <li class="active"><a href="#">2005</a></li>
             <li><a href="#">2006</a></li>
             <li><a href="#">2007</a></li>
@@ -16,6 +16,14 @@
             <li><a href="#">2009</a></li>
             <li><a href="#">2010</a></li>
             <li><a href="#">2011</a></li>
+        </ul>
+
+        <ul class="category-filter">
+            <li class="racism active"><a href="#">Rassismus</a></li>
+            <li class="antisemitism active"><a  href="#">Antisemitismus</a></li>
+            <li class="sexism active"><a href="#">Sexismus</a></li>
+            <li class="homophobia active"><a href="#">Homophobie</a></li>
+            <li class="uncategorized active"><a href="#">Unkategorisiert</a></li>
         </ul>
     </nav>
     <div id="map"></div>

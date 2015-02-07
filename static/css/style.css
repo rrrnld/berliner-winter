@@ -18,24 +18,25 @@ body {
     height: 100%;
 }
 
-#year-picker {
+#filter-picker {
     position: absolute;
     z-index: 10;
     top: 6px;
     right: 6px;
+    pointer-events: none;
 }
 
-#year-picker ul {
+#filter-picker ul {
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
-#year-picker li {
+.year-filter li {
     display: inline-block;
 }
 
-#year-picker a {
+.year-filter a {
     display: block;
     width: 72px;
     padding: 12px;
@@ -47,10 +48,64 @@ body {
     transition: background .3s ease;
 }
 
-#year-picker a:hover {
+.year-filter a:hover {
     background: #333;
 }
 
-#year-picker .active a {
+.year-filter .active a {
     background: #444;
+}
+
+.category-filter {
+    text-align: right;
+}
+
+.category-filter li {
+    margin: 12px 0;
+    opacity: .5;
+}
+
+.category-filter li.active {
+    opacity: 1;
+}
+
+.category-filter a {
+    text-decoration: none;
+    color: #333;
+    padding: 6px;
+    text-shadow: 0 0 20px rgba(255,255,255,.8);
+    position: relative;
+}
+
+.category-filter a:after {
+    content: '';
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 2px solid #f00;
+    position: absolute;
+    top: 50%;
+    left: -.5em;
+    margin-top: -4.5px;
+}
+
+.category-filter .racism a:after {
+    border-color: #F8B195;
+}
+
+.category-filter .antisemitism a:after {
+    border-color: #F67280;
+}
+
+.category-filter .sexism a:after {
+    border-color: #C06C84;
+}
+
+.category-filter .homophobia a:after {
+    border-color: #6C5B7B;
+}
+
+.category-filter .uncategorized a:after {
+    border-color: #355C7D;
 }
