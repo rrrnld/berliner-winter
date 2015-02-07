@@ -26,7 +26,7 @@ def articles():
     c = cursor.execute("""
                         SELECT  article.id, article.date, article.place, article.description, category.name
                         FROM    article
-                            JOIN category ON article.id = category.article_id
+                            LEFT OUTER JOIN category ON article.id = category.article_id
                        """)
 
     articles = {}
