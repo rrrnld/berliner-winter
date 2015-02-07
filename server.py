@@ -1,6 +1,10 @@
 import bottle
 from models import *
 
+@bottle.get("/")
+def index():
+    return bottle.template('index')
+
 @bottle.get("/locations/<article_id:int>")
 def location(article_id):
     return (Location
@@ -30,6 +34,10 @@ def article(article_id):
     #     .dicts()
     #     .get())
     pass
+
+@bottle.get('/static/<filepath:path>')
+def server_static(filepath):
+    return bottle.static_file(filepath, root='static/')
 
 if __name__ == "__main__":
     bottle.run(host="localhost", port=12345, reloader=True, debug=True)
