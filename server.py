@@ -29,29 +29,40 @@ def index():
 @bottle.get("/articles/")
 def articles():
     conn = sqlite3.connect('violence.db')
-    c = conn.cursor()
-    c = c.execute("""
-                        SELECT  article.id, article.date, article.place, article.description, category.name,
-                                location.confidence, location.lat, location.lng, location.match, location.returned_place
+    cursor = conn.cursor()
+
+    l = cursor.execute("""
+                        SELECT  location.lat, location.lng, location.returned_place, location.article_id
+                        FROM    location
+                        ORDER BY location.confidence DESC, location.id ASC
+                       """)
+
+    locations = {}
+    for location in l.fetchall():
+        # check if we already have entries for the article_id
+        if not locations.get(location[3]):
+            locations[location[3]] = (location[0], location[1], location[2])
+
+    c = cursor.execute("""
+                        SELECT  article.id, article.date, article.place, article.description, category.name
                         FROM    article
                             JOIN category ON article.id = category.article_id
-                            JOIN location ON article.id = location.article_id
-                  """)
+                       """)
 
     articles = []
     for article in c.fetchall():
-        articles.append({
-            "id":       article[0],
-            "date":     article[1],
-            "place":    article[2],
-            "desc":     article[3],
-            "cat":      article[4],
-            "conf":     article[5],
-            "lat":      article[6],
-            "lng":      article[7],
-            "match":    article[8],
-            "returned_place": article[9]
-        })
+        article_id = article[0]
+        if locations.get(article_id):
+            articles.append({
+                "id":           article_id,
+                "date":         article[1],
+                "place":        article[2],
+                "description":  article[3],
+                "category":     article[4],
+                "lat":          locations[article_id][0],
+                "lng":          locations[article_id][1],
+                "place":        locations[article_id][2]
+            })
     conn.close()
     return json.dumps(articles)
 
