@@ -9,13 +9,14 @@
 <body>
     <nav id="filter-picker">
         <ul class="year-filter">
-            <li class="active"><a href="#">2005</a></li>
+            <li><a href="#">2005</a></li>
             <li><a href="#">2006</a></li>
             <li><a href="#">2007</a></li>
             <li><a href="#">2008</a></li>
             <li><a href="#">2009</a></li>
             <li><a href="#">2010</a></li>
             <li><a href="#">2011</a></li>
+            <li class="all active"><a href="#">Alle</a></li>
         </ul>
 
         <ul class="category-filter">
