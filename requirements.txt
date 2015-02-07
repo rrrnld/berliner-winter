@@ -1,5 +1,7 @@
 beautifulsoup4==4.3.2
+bottle==0.12.8
 nltk==3.0.1
 peewee==2.4.4
 redis==2.10.3
+requests==2.5.1
 rq==0.4.6
