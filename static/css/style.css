@@ -24,10 +24,15 @@ a {
     height: 100%;
 }
 
+.leaflet-popup {
+    pointer-events: none;
+}
+
 .leaflet-popup-content {
     font-family: 'Libre Baskerville', serif;
     margin: 1.3em;
     line-height: inherit;
+    pointer-events: auto;
 }
 
 .leaflet-popup-content-wrapper {
