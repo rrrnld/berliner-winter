@@ -41,7 +41,7 @@ def articles():
                     "date":         article[1],
                     "place":        article[2],
                     "description":  article[3],
-                    "categories":   [article[4]],
+                    "categories":   [article[4]] if article[4] else [],
                     "lat":          locations[article_id][0],
                     "lng":          locations[article_id][1],
                     "place":        locations[article_id][2]
