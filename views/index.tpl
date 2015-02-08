@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
+    <meta charset="utf-8">
     <title>Visualization of Hate Crime in Berlin</title>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/style.css">
