@@ -2,7 +2,7 @@
 import Visualization from './visualization'
 
 // http://www.colourlovers.com/palette/1811244/1001_Stories
-var colors = [ '#F8B195', '#F67280', '#C06C84', '#6C5B7B', '#355C7D' ]
+var colors = [ '#355C7D', '#F67280', '#C06C84', '#6C5B7B', '#888888' ]
 
 // set up background map
 var map = L.map('map').setView([52.50, 13.40], 11)
