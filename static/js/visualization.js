@@ -17,7 +17,8 @@ class Visualization {
     this.data = data
     this.colors = colors
 
-    this._markers = []
+    this._markers = new Map()
+    this.setupMarkers()
   }
 
   /**
@@ -106,6 +107,24 @@ class Visualization {
   }
 
   /**
+   * Sets up all markers for the first time so afterwards they only need to be
+   * faded in and out
+   * @return {Visualization}
+   * @chainable
+   */
+  setupMarkers () {
+    this.data.forEach(incident => {
+      var options = { color: this._pickColor(incident) }
+      var marker = L.circleMarker([incident.lat, incident.lng], options)
+        .addTo(this.map)
+
+      this._markers.set(incident, marker)
+    })
+
+    return this;
+  }
+
+  /**
    * Clear the map and render new markers
    * @param  {Array[Object]} incidents The incidents to be shown
    * @return {Visualization}
@@ -115,23 +134,15 @@ class Visualization {
     if (incidents == null)
       incidents = this.data
 
-    this._markers.forEach(marker => { this.map.removeLayer(marker) })
-    this._markers = incidents.map(incident => {
-      return this._createMarker(incident).bindPopup(incident.description.replace(/\n/g, '<br>'))
-    })
+    for (var [incident, marker] of this._markers)
+      if (incidents.indexOf(incident) == -1)
+        this.map.removeLayer(marker)
+      else
+        marker
+          .addTo(this.map)
+          .bindPopup(incident.description.replace(/\n/g, '<br>'))
 
     return this
-  }
-
-  /**
-   * Creates the correct marker for a single incident and adds it to the map
-   * @param  {Object}         data A single incident
-   * @return {L.CircleMarker}
-   */
-  _createMarker (data) {
-    var options =  { color: this._pickColor(data) }
-    var marker = L.circleMarker([data.lat, data.lng], options).addTo(this.map)
-    return marker
   }
 
   /**
