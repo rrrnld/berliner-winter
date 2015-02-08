@@ -114,9 +114,20 @@ class Visualization {
    */
   setupMarkers () {
     this.data.forEach(incident => {
-      var options = { color: this._pickColor(incident) }
-      var marker = L.circleMarker([incident.lat, incident.lng], options)
+      var icon = L.divIcon({
+        className: 'circle-marker',
+        iconSize: [18, 18]
+      })
+
+      var options = { icon: icon }
+      var marker = L.marker([incident.lat, incident.lng], options)
         .addTo(this.map)
+
+      var color = colorUtils.hexToRGB(this._pickColor(incident))
+      $(marker._icon).css({
+        borderColor: `rgba(${color[0]},${color[1]},${color[2]},.5)`,
+        backgroundColor: `rgba(${color[0]},${color[1]},${color[2]},.2)`
+      })
 
       this._markers.set(incident, marker)
     })
