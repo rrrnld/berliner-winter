@@ -1,6 +1,9 @@
 # Ignore the SQLite database
 violence.db
 
+# JSPM
+/static/jspm_packages/*/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

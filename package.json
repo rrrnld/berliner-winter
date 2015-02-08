@@ -1,0 +1,12 @@
+{
+  "jspm": {
+    "name": "Reach Out Open Data",
+    "directories": {
+      "baseURL": "static",
+      "lib": "static/js"
+    },
+    "dependencies": {
+      "jquery": "^2.1.3"
+    }
+  }
+}

@@ -30,8 +30,10 @@
     <div id="map"></div>
 
     <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
-    <script src="/static/js/main.js"></script>
+
+    <script src="/static/jspm_packages/system.js"></script>
+    <script src="/static/config.js"></script>
+    <script>System.import('js/main');</script>
 </body>
 </html>
