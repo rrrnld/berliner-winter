@@ -167,10 +167,10 @@ class Visualization {
 
     for (var [incident, marker] of this._markers)
       if (incidents.indexOf(incident) == -1) {
-        this.map.removeLayer(marker)
+        $(marker._icon).hide()
         this.oms.removeMarker(marker)
       } else {
-        this.map.addLayer(marker)
+        $(marker._icon).show()
         this.oms.addMarker(marker)
       }
 
