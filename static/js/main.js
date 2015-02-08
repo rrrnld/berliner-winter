@@ -19,8 +19,19 @@ $.getJSON('/articles/')
   .fail(console.error.bind(console))
   .then(function (response) {
     console.log('Got data successfully!')
+    console.log(response.length)
     visualization = new Visualization(map, response, colors)
       .setupCategoryFilter('.category-filter')
       .setupYearFilter('.year-filter')
       .displayMarkers()
-  });
+  })
+
+$('.begin').on('click', function (e) {
+  $('#overlay')
+    .fadeOut(700)
+    .then(function() { $(this).remove() })
+
+  e.preventDefault()
+  e.stopPropagation()
+  return false
+})

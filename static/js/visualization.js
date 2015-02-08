@@ -33,6 +33,11 @@ class Visualization {
       map.openPopup(popup)
     })
 
+    this.oms.addListener('spiderfy', (marker) => {
+      this.map.setCenter(marker.getLatLng())
+      this.map.setZoom(20)
+    })
+
     // set up markers
     this._markers = new Map()
     this.setupMarkers()
