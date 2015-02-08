@@ -10,7 +10,7 @@ var layer = new L.StamenTileLayer('toner-lite')
 map.addLayer(layer)
 
 // restrict viewable area
-map.setMaxBounds(map.getBounds())
+map.setMaxBounds(map.getBounds().pad(0.4))
 map.options.minZoom = map.getZoom()
 
 // get response from server and draw the map
