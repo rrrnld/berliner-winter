@@ -23,4 +23,5 @@ $.getJSON('/articles/')
 
     visualization.displayMarkers()
     visualization.setupCategoryFilter('.category-filter')
+    visualization.setupYearFilter('.year-filter')
   });

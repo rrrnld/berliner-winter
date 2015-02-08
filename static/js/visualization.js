@@ -18,7 +18,6 @@ class Visualization {
     this.colors = colors
 
     this._markers = []
-    this._$categoryList = null
   }
 
   /**
@@ -66,13 +65,54 @@ class Visualization {
       $(e.target).parent().toggleClass('active')
 
       var categories = this.getActiveCategories()
-      var incidents = filter.categories(this.data, categories)
+      var incidents = filter.byCategories(this.data, categories)
       this.displayMarkers(incidents)
 
       e.preventDefault()
       e.stopPropagation()
       return false
     })
+  }
+
+  /**
+   * Creates the year list which optionally already holds a button for "all"
+   * @param  {jQuery.Selector} selector The container holding
+   */
+  setupYearFilter (selector) {
+    var fragment = document.createDocumentFragment()
+    var $a = $(document.createElement('a')).attr('href', '#')
+    var $li = $(document.createElement('li')).append($a)
+
+    this._$yearList = $(selector)
+
+    var years = new Set()
+    this.data.forEach(incident => { years.add(incident.date.substr(0, 4)) })
+
+    Array.from(years).sort().forEach(function (year) {
+      $li.clone()
+        .find('a')
+        .text(year)
+        .data({ showYear: year })
+        .end()
+        .appendTo(fragment)
+    })
+
+    this._$yearList
+      .prepend(fragment)
+      .on('click', 'a', e => {
+        var $target = $(e.target)
+        $target.parent().siblings().removeClass('active')
+        $target.parent().addClass('active')
+
+        var year = $target.data().showYear
+        var incidents = (year) ? filter.byYear(this.data, year) : this.data
+
+        this.displayMarkers(incidents)
+
+        e.preventDefault()
+        e.stopPropagation()
+        return false
+      })
   }
 
   /**

@@ -6,7 +6,7 @@ export default {
    * @param  {Array[String]} categories
    * @return {Array[Obect]}
    */
-  categories: function (data, categories) {
+  byCategories: function (data, categories) {
     return data.filter(function (incident) {
       for (var i = 0, l = incident.categories.length; i < l; i++)
         if (categories.indexOf(incident.categories[i]) !== -1)
@@ -14,6 +14,15 @@ export default {
 
       return false
     });
+  },
+
+  /**
+   * Return only the incidents that happened in a given year
+   */
+  byYear: function (data, year) {
+    return data.filter(function (incident) {
+      return incident.date.indexOf(year) === 0
+    })
   }
 
 };

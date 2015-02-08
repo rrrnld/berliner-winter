@@ -9,13 +9,6 @@
 <body>
     <nav id="filter-picker">
         <ul class="year-filter">
-            <li><a href="#">2005</a></li>
-            <li><a href="#">2006</a></li>
-            <li><a href="#">2007</a></li>
-            <li><a href="#">2008</a></li>
-            <li><a href="#">2009</a></li>
-            <li><a href="#">2010</a></li>
-            <li><a href="#">2011</a></li>
             <li class="all active"><a href="#">Alle</a></li>
         </ul>
 
@@ -32,6 +25,7 @@
     <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
     <script src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
 
+    <script src="/static/jspm_packages/6to5-polyfill.js"></script>
     <script src="/static/jspm_packages/system.js"></script>
     <script src="/static/config.js"></script>
     <script>System.import('js/main');</script>
