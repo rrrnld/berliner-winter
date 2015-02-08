@@ -27,9 +27,7 @@ $.getJSON('/articles/')
   })
 
 $('.begin').on('click', function (e) {
-  $('#overlay')
-    .fadeOut(700)
-    .then(function() { $(this).remove() })
+  $('#overlay').fadeOut(700)
 
   e.preventDefault()
   e.stopPropagation()
