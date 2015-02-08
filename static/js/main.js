@@ -1,7 +1,7 @@
 'use strict';
 import $ from 'jquery';
 import filter from './filter';
-import {mixColors} from './colors';
+import colorUtils from './colors';
 
 // http://www.colourlovers.com/palette/1811244/1001_Stories
 var colors = [ '#F8B195', '#F67280', '#C06C84', '#6C5B7B', '#355C7D' ];
@@ -73,7 +73,7 @@ function pickColor (incident) {
     return categories.indexOf(index) !== -1;
   });
 
-  return incident.categories.length ? mixColors(categoryColors) : colors[4];
+  return incident.categories.length ? colorUtils.mix(categoryColors) : colors[4];
 }
 
 /**
