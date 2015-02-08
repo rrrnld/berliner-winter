@@ -1,5 +1,8 @@
 'use strict';
 import $ from 'jquery'
+
+import './lib/oms.min'
+
 import filter from './filter'
 import colorUtils from './colors'
 
@@ -17,6 +20,20 @@ class Visualization {
     this.data = data
     this.colors = colors
 
+    // set up OMS
+    this.oms = new OverlappingMarkerSpiderfier(map, {
+      keepSpiderfied: true,
+      circleSpiralSwitchover: 12,
+    })
+
+    var popup = new L.Popup();
+    this.oms.addListener('click', function (marker) {
+      popup.setContent(marker.description.replace(/\n/g, '<br>'))
+      popup.setLatLng(marker.getLatLng())
+      map.openPopup(popup)
+    })
+
+    // set up markers
     this._markers = new Map()
     this.setupMarkers()
   }
@@ -123,16 +140,19 @@ class Visualization {
       var marker = L.marker([incident.lat, incident.lng], options)
         .addTo(this.map)
 
+      marker.description = incident.description
+
       var color = colorUtils.hexToRGB(this._pickColor(incident))
       $(marker._icon).css({
         borderColor: `rgba(${color[0]},${color[1]},${color[2]},.5)`,
         backgroundColor: `rgba(${color[0]},${color[1]},${color[2]},.2)`
       })
 
+      this.oms.addMarker(marker)
       this._markers.set(incident, marker)
     })
 
-    return this;
+    return this
   }
 
   /**
@@ -146,12 +166,13 @@ class Visualization {
       incidents = this.data
 
     for (var [incident, marker] of this._markers)
-      if (incidents.indexOf(incident) == -1)
-        this.map.removeLayer(marker)
-      else
-        marker
-          .addTo(this.map)
-          .bindPopup(incident.description.replace(/\n/g, '<br>'))
+      if (incidents.indexOf(incident) == -1) {
+        $(marker._icon).hide()
+        this.oms.removeMarker(marker)
+      } else {
+        $(marker._icon).show()
+        this.oms.addMarker(marker)
+      }
 
     return this
   }
