@@ -20,8 +20,7 @@ $.getJSON('/articles/')
   .then(function (response) {
     console.log('Got data successfully!')
     visualization = new Visualization(map, response, colors)
-
-    visualization.displayMarkers()
-    visualization.setupCategoryFilter('.category-filter')
-    visualization.setupYearFilter('.year-filter')
+      .setupCategoryFilter('.category-filter')
+      .setupYearFilter('.year-filter')
+      .displayMarkers()
   });

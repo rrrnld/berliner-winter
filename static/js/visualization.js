@@ -23,6 +23,8 @@ class Visualization {
   /**
    * Clear the map and render new markers
    * @param  {Array[Object]} incidents The incidents to be shown
+   * @return {Visualization}
+   * @chainable
    */
   displayMarkers (incidents) {
     if (incidents == null)
@@ -36,6 +38,8 @@ class Visualization {
         this._createMarker(incident).bindPopup(incident.description)
       )
     })
+
+    return this
   }
 
   /**
@@ -57,6 +61,8 @@ class Visualization {
    * Sets up the category filter
    * @param  {jQuery.Selector} selector The container holding the LIs
    *                                    representing the different categories
+   * @return {Visualization}
+   * @chainable
    */
   setupCategoryFilter (selector) {
     this._$categoryList = $(selector)
@@ -72,11 +78,15 @@ class Visualization {
       e.stopPropagation()
       return false
     })
+
+    return this
   }
 
   /**
    * Creates the year list which optionally already holds a button for "all"
    * @param  {jQuery.Selector} selector The container holding
+   * @return {Visualization}
+   * @chainable
    */
   setupYearFilter (selector) {
     var fragment = document.createDocumentFragment()
@@ -113,6 +123,8 @@ class Visualization {
         e.stopPropagation()
         return false
       })
+
+    return this
   }
 
   /**
