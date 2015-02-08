@@ -8,11 +8,16 @@ export default {
    */
   byCategories: function (data, categories) {
     return data.filter(function (incident) {
-      for (var i = 0, l = incident.categories.length; i < l; i++)
-        if (categories.indexOf(incident.categories[i]) !== -1)
+      if(incident.categories.length > 0) {
+        for (var i = 0, l = incident.categories.length; i < l; i++)
+          if (categories.indexOf(incident.categories[i]) !== -1)
+            return true
+      } else {
+        if(categories.indexOf("uncategorized") !== -1)
           return true
-
-      return false
+        else
+          return false
+      }
     });
   },
 
