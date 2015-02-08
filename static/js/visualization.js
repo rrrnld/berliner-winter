@@ -66,8 +66,7 @@ class Visualization {
     this._$categoryList.on('click', 'a', e => {
       $(e.target).parent().toggleClass('active')
 
-      var categories = this.getActiveCategories()
-      var incidents = filter.byCategories(this.data, categories)
+      var incidents = this.filterAll()
       this.displayMarkers(incidents)
 
       e.preventDefault()
@@ -76,6 +75,14 @@ class Visualization {
     })
 
     return this
+  }
+
+  /**
+   * Get currently active year
+   * @return {String}
+   */
+  getCurrentYear () {
+    return this._$yearList.children('.active').find('a').data().showYear
   }
 
   /**
@@ -110,9 +117,7 @@ class Visualization {
         $target.parent().siblings().removeClass('active')
         $target.parent().addClass('active')
 
-        var year = $target.data().showYear
-        var incidents = (year) ? filter.byYear(this.data, year) : this.data
-
+        var incidents = this.filterAll()
         this.displayMarkers(incidents)
 
         e.preventDefault()
@@ -121,6 +126,14 @@ class Visualization {
       })
 
     return this
+  }
+
+  filterAll () {
+    var year = this.getCurrentYear()
+    var categories = this.getActiveCategories()
+
+    var byYear = (year) ? filter.byYear(this.data, year) : this.data
+    return filter.byCategories(byYear, categories)
   }
 
   /**
