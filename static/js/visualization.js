@@ -21,28 +21,6 @@ class Visualization {
   }
 
   /**
-   * Clear the map and render new markers
-   * @param  {Array[Object]} incidents The incidents to be shown
-   * @return {Visualization}
-   * @chainable
-   */
-  displayMarkers (incidents) {
-    if (incidents == null)
-      incidents = this.data
-
-    this._markers.forEach(marker => { this.map.removeLayer(marker) })
-    this._markers = []
-
-    incidents.forEach(incident => {
-      this._markers.push(
-        this._createMarker(incident).bindPopup(incident.description)
-      )
-    })
-
-    return this
-  }
-
-  /**
    * Gets all currently active categories
    * @return {Array[string]}
    */
@@ -123,6 +101,24 @@ class Visualization {
         e.stopPropagation()
         return false
       })
+
+    return this
+  }
+
+  /**
+   * Clear the map and render new markers
+   * @param  {Array[Object]} incidents The incidents to be shown
+   * @return {Visualization}
+   * @chainable
+   */
+  displayMarkers (incidents) {
+    if (incidents == null)
+      incidents = this.data
+
+    this._markers.forEach(marker => { this.map.removeLayer(marker) })
+    this._markers = incidents.map(incident => {
+      return this._createMarker(incident).bindPopup(incident.description.replace(/\n/g, '<br>'))
+    })
 
     return this
   }
