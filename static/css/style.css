@@ -56,6 +56,7 @@ a {
     font-style: italic;
     font-size: 1.2em;
     color: #aaa;
+    margin-top: 3px;
 }
 
 .leaflet-container a.leaflet-popup-close-button {
