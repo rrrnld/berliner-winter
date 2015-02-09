@@ -5,6 +5,7 @@ import './lib/oms.min'
 
 import filter from './filter'
 import colorUtils from './colors'
+import template from './popup'
 
 class Visualization {
 
@@ -28,7 +29,7 @@ class Visualization {
 
     this.oms.legColors = {
       usual: 'rgba(0,0,0,.2)',
-      highlighted: 'rgba(0,0,0,.5)'
+      highlighted: 'rgba(0,0,0,.6)'
     }
 
     var popup = new L.Popup({
@@ -40,7 +41,7 @@ class Visualization {
       if (map.getZoom() < 10)
         map.setZoom(9)
 
-      popup.setContent(marker.description.replace(/\n/g, '<br>'))
+      popup.setContent(template(marker.incident))
       popup.setLatLng(marker.getLatLng())
       map.openPopup(popup)
     })
@@ -165,7 +166,7 @@ class Visualization {
       var marker = L.marker([incident.lat, incident.lng], options)
         .addTo(this.map)
 
-      marker.description = incident.description
+      marker.incident = incident
 
       var color = colorUtils.hexToRGB(this._pickColor(incident))
       $(marker._icon).css({
