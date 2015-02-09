@@ -34,7 +34,7 @@ class Visualization {
 
     var popup = new L.Popup({
       autoPanPadding: [96, 96],
-      closeButton: false,
+      closeButton: true,
       maxHeight: 250
     });
     this.oms.addListener('click', function (marker) {

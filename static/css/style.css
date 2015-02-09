@@ -18,7 +18,7 @@ a {
     color: inherit;
 }
 
-/* background map */
+/* map of incidents */
 
 #map {
     height: 100%;
@@ -49,6 +49,22 @@ a {
 
 .leaflet-popup-scrolled {
     border: none;
+}
+
+.leaflet-popup-content .date {
+    font-weight: 400;
+    font-style: italic;
+    font-size: 1.2em;
+    color: #aaa;
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+    pointer-events: auto;
+    width: auto;
+    height: auto;
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1.2em;
+    padding: 1.3em;
 }
 
 .circle-marker {
@@ -170,8 +186,6 @@ a {
     left: 0;
     background: -webkit-linear-gradient(top right, rgba(255,255,255,.2), white 50%);
     background: linear-gradient(to bottom left, rgba(255,255,255,.2), white 50%);
-    display: table-cell;
-    vertical-align: center;
 }
 
 #overlay .text {
