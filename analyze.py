@@ -87,12 +87,21 @@ def get_categories(article_body):
     """
     bad_words = {
         'antisemit': 'antisemitism',
-        'homophob': 'homophobia',
+        'jud': 'antisemitism',
+        'jüd': 'antisemitism',
+        'homo': 'homophobia',
+        'schwul': 'homophobia',
+        'lesb': 'homophobia',
+        'trans': 'homophobia',
         'sexis': 'sexism',
-        'rassis': 'racism'
+        'frauenfeind': 'sexism',
+        'rassis': 'racism',
+        'fremdenfeind': 'racism',
+        'flüchtling': 'racism',
+        'migrant': 'racism'
     }
-    found_categories = [bad_words[key] for key in bad_words
-                                        if key in article_body.lower()]
+    found_categories = set([bad_words[key] for key in bad_words
+                                            if key in article_body.lower()])
     return found_categories
 
 def get_geoloc(query):
