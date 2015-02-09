@@ -11,7 +11,7 @@
     <script>document.body.classList.add('js')</script>
     <div id="overlay">
         <div class="text">
-            <h1>Berliner Winter:</h1>
+            <h1>Berliner Winter</h1>
             <p>
                 Jeder Punkt dieser Karte steht für einen Übergriff im Zeitraum von Januar 2005 bis November 2014.<br>
                 Die Chronik wurde erstellt von <a href="http://reachoutberlin.de/" target="_blank">ReachOut Berlin</a>. Analyse und Visualisierung von Joshua Widmann und Arne Schlüter.
