@@ -90,7 +90,8 @@ a {
     text-decoration: none;
     color: #ddd;
     text-align: center;
-    transition: background .3s ease;
+    -webkit-transition: background .3s ease;
+            transition: background .3s ease;
 }
 
 .year-filter a:hover {
@@ -108,7 +109,8 @@ a {
 .category-filter li {
     margin: 12px 0;
     opacity: .5;
-    transition: opacity .3s ease;
+    -webkit-transition: opacity .3s ease;
+            transition: opacity .3s ease;
 }
 
 .category-filter li.active {
@@ -166,6 +168,7 @@ a {
     width: 100%;
     top: 0;
     left: 0;
+    background: -webkit-linear-gradient(top right, rgba(255,255,255,.2), white 50%);
     background: linear-gradient(to bottom left, rgba(255,255,255,.2), white 50%);
     display: table-cell;
     vertical-align: center;
@@ -177,7 +180,9 @@ a {
     left: 50%;
     width: 90%;
     max-width: 1024px;
-    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
 }
 
 #overlay h1 {
