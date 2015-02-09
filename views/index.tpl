@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
     <meta charset="utf-8">
-    <title>A mad world - Rechte Übergriffe in Berlin 2005 bis 2014</title>
+    <title>Berliner Winter - Rechte Übergriffe in Berlin 2005 bis 2014</title>
     <link href='http://fonts.googleapis.com/css?family=Libre+Baskerville:400,400italic,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/style.css">
@@ -11,7 +11,7 @@
     <script>document.body.classList.add('js')</script>
     <div id="overlay">
         <div class="text">
-            <h1>A mad world:</h1>
+            <h1>Berliner Winter:</h1>
             <p>
                 Jeder Punkt dieser Karte steht für einen Übergriff im Zeitraum von Januar 2005 bis November 2014.<br>
                 Die Chronik wurde erstellt von <a href="http://reachoutberlin.de/" target="_blank">ReachOut Berlin</a>. Analyse und Visualisierung von Joshua Widmann und Arne Schlüter.
