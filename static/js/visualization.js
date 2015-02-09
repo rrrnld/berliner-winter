@@ -23,11 +23,23 @@ class Visualization {
     // set up OMS
     this.oms = new OverlappingMarkerSpiderfier(map, {
       keepSpiderfied: true,
-      circleSpiralSwitchover: 12,
+      nearbyDistance: 1
     })
 
-    var popup = new L.Popup();
+    this.oms.legColors = {
+      usual: 'rgba(0,0,0,.2)',
+      highlighted: 'rgba(0,0,0,.5)'
+    }
+
+    var popup = new L.Popup({
+      autoPanPadding: [96, 96],
+      closeButton: false,
+      maxHeight: 250
+    });
     this.oms.addListener('click', function (marker) {
+      if (map.getZoom() < 10)
+        map.setZoom(9)
+
       popup.setContent(marker.description.replace(/\n/g, '<br>'))
       popup.setLatLng(marker.getLatLng())
       map.openPopup(popup)

@@ -2,7 +2,7 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-family: 'Lora', serif;
+    font-family: 'Libre Baskerville', serif;
 }
 
 *, *:before, *:after {
@@ -11,12 +11,53 @@ html, body {
 
 body {
     background: #fff;
-    color: #000;
+    color: #222;
 }
+
+a {
+    color: inherit;
+}
+
+/* background map */
 
 #map {
     height: 100%;
 }
+
+.leaflet-popup {
+    pointer-events: none;
+}
+
+.leaflet-popup-content {
+    font-family: 'Libre Baskerville', serif;
+    margin: 1.3em;
+    line-height: inherit;
+    pointer-events: auto;
+}
+
+.leaflet-popup-content-wrapper {
+    border-radius: 0;
+    text-align: justify;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+    background: #222;
+    color: #fff;
+    box-shadow: none;
+}
+
+.leaflet-popup-scrolled {
+    border: none;
+}
+
+.circle-marker {
+    border-radius: 50%;
+    border: 2px solid rgba(0,0,0,.5);
+    background: rgba(0,0,0,.2);
+}
+
+/* filters */
 
 #filter-picker {
     position: absolute;
@@ -98,7 +139,7 @@ body {
 }
 
 .category-filter .racism a:after {
-    border-color: #F8B195;
+    border-color: #355C7D;
 }
 
 .category-filter .antisemitism a:after {
@@ -114,11 +155,64 @@ body {
 }
 
 .category-filter .uncategorized a:after {
-    border-color: #355C7D;
+    border-color: #888888;
 }
 
-.circle-marker {
-    border-radius: 50%;
-    border: 2px solid rgba(0,0,0,.5);
-    background: rgba(0,0,0,.2);
+/* overlay text */
+#overlay {
+    position: absolute;
+    z-index: 1001;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to bottom left, rgba(255,255,255,.2), white 50%);
+    display: table-cell;
+    vertical-align: center;
+}
+
+#overlay .text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    max-width: 1024px;
+    transform: translate(-50%,-50%);
+}
+
+#overlay h1 {
+    margin-top: -1.2em;
+    font-size: 48px;
+    margin-bottom: 0;
+    display: inline-block;
+    font-weight: 500;
+    font-style: italic;
+}
+
+#overlay p {
+    margin: 1em 0 1.2em;
+    padding: .6em 0;
+    line-height: 2;
+    font-size: 24px;
+}
+
+#overlay a {
+    text-decoration: none;
+    border-bottom: 1px dotted #333;
+    padding-bottom: .2em;
+}
+
+#overlay a:hover {
+    border-bottom-color: transparent;
+}
+
+#overlay .begin {
+    font-size: 24px;
+    border-bottom: none;
+    font-weight: bold;
+}
+
+#overlay .begin:after {
+    content: '›';
+    padding-left: .1em;
 }
