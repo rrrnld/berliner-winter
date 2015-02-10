@@ -37,10 +37,15 @@ class Visualization {
       closeButton: true,
       maxHeight: 250
     })
+
     this.oms.addListener('click', function (marker) {
       popup.setContent(template(marker.incident))
       popup.setLatLng(marker.getLatLng())
       map.openPopup(popup)
+    })
+
+    this.oms.addListener('spiderfy', function () {
+      map.closePopup()
     })
 
     // set up markers
