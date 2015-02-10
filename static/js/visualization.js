@@ -36,11 +36,8 @@ class Visualization {
       autoPanPadding: [96, 96],
       closeButton: true,
       maxHeight: 250
-    });
+    })
     this.oms.addListener('click', function (marker) {
-      if (map.getZoom() < 10)
-        map.setZoom(9)
-
       popup.setContent(template(marker.incident))
       popup.setLatLng(marker.getLatLng())
       map.openPopup(popup)
@@ -80,6 +77,7 @@ class Visualization {
       $(e.target).parent().toggleClass('active')
 
       var incidents = this.filterAll()
+      this.map.closePopup()
       this.displayMarkers(incidents)
 
       e.preventDefault()
@@ -131,6 +129,7 @@ class Visualization {
         $target.parent().addClass('active')
 
         var incidents = this.filterAll()
+        this.map.closePopup()
         this.displayMarkers(incidents)
 
         e.preventDefault()
