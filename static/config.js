@@ -1,5 +1,5 @@
 System.config({
-  "baseURL": "/static/",
+  "baseURL": "static/",
   "transpiler": "6to5",
   "paths": {
     "*": "*.js",

@@ -5,7 +5,7 @@
     <title>Berliner Winter - Rechte Übergriffe in Berlin 2005 bis 2014</title>
     <link href='http://fonts.googleapis.com/css?family=Libre+Baskerville:400,400italic,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
 </head>
 <body>
     <script>document.body.classList.add('js')</script>
@@ -37,9 +37,9 @@
     <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
     <script src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
 
-    <script src="/static/jspm_packages/6to5-polyfill.js"></script>
-    <script src="/static/jspm_packages/system.js"></script>
-    <script src="/static/config.js"></script>
+    <script src="static/jspm_packages/6to5-polyfill.js"></script>
+    <script src="static/jspm_packages/system.js"></script>
+    <script src="static/config.js"></script>
     <script>System.import('js/main');</script>
 </body>
 </html>
