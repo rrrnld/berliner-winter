@@ -38,8 +38,6 @@
     <script src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
 
     <script src="static/jspm_packages/6to5-polyfill.js"></script>
-    <script src="static/jspm_packages/system.js"></script>
-    <script src="static/config.js"></script>
-    <script>System.import('js/main');</script>
+    <script src="static/js/bundle.js"></script>
 </body>
 </html>
