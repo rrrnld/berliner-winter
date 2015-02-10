@@ -15,7 +15,7 @@ map.options.minZoom = map.getZoom()
 
 // get response from server and draw the map
 var visualization
-$.getJSON('/articles/')
+$.getJSON('articles/')
   .fail(console.error.bind(console))
   .then(function (response) {
     console.log('Got data successfully!')
