@@ -1,7 +1,14 @@
 import bottle
 import sqlite3
 import json
-import
+import os
+
+# Fix path for uberspace
+import sys
+try:
+    os.chdir(os.path.dirname(sys.argv[0]))
+except:
+    pass
 
 @bottle.get("/")
 def index():
