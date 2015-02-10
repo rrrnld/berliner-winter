@@ -1,6 +1,7 @@
 import bottle
 import sqlite3
 import json
+import
 
 @bottle.get("/")
 def index():
@@ -55,4 +56,4 @@ def server_static(filepath):
     return bottle.static_file(filepath, root='static/')
 
 if __name__ == "__main__":
-    bottle.run(host="localhost", port=12345, reloader=True, debug=True)
+    bottle.run(host="localhost", port=os.environ.get('OPEN_DATA_PORT', 12345), reloader=True, debug=True)
