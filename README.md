@@ -78,7 +78,7 @@ As described in the chapter **More precise locations** we used a text file conta
 Our algorithm at the moment discards words which appear in the german noun list. As already described, such words can be *face* or *woman*. The discarding process works fine for singular word cases, but as soon as they appear in plural they do not match with any nouns in the list anymore and therefore wrongly pass the filter anyway. This is why we had to clean some of the entries in our database by hand afterwards.
 
 ### Mapping incidents
-Quite a lot of the incidents are mapped to the same position, which leads to a stack of markers that leaves markers below unreachable for the user to click. In order to avoid this bug we chose to the [markercluster](https://github.com/Leaflet/Leaflet.markercluster) plugin which allows spiderfying a cluster of markers when it is clicked.
+Quite a lot of the incidents are mapped to the same position, which leads to a stack of markers that leaves markers below unreachable for the user to click. In order to avoid this bug we chose to use the [markercluster](https://github.com/Leaflet/Leaflet.markercluster) plugin which allows spiderfying a cluster of markers when it is clicked.
 
 <!-- In order to set up the tables you have to create them first. This is done quite easily using the `python` interpreter:
 ```python
