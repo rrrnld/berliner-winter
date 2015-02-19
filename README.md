@@ -33,7 +33,7 @@ To visualize the incidents on a map, the district on its own seemed to be an imp
 Doing this we realized that some of the words we extracted from the text were actually completely irrelevant (*hair*, *face*, *woman*, *evening* and the like). We supposed to be able to identify these irrelevant ones by simply querying a german dictionary whether it contains this word or not, to tell whether this word is a relevant location or just an irrelevant noun from the german language. We ended up checking a text file, containing around 24,000 german nouns.
 
 ## Categorizing incidents
-As we examined some of the incident descriptions we came to the conclusion that it is possible to group most of the incidents by certain categories. We recognized four major categories: *homophic* incidents, *antisemtitic* incidents, *sexist* incidents and *racist* incidents. To automatically assign distinctive categories to each incident we implemented a simple algorithm which searches for certain keywords in the incident description. This way an incidents can be tagged with none or multiple categories ([analyze.py](analyze.py)). We stored these assignements in a seperate table of our SQLite database called *category* with the columns *ID*, *Name* and *Article_ID*.
+As we examined some of the incident descriptions we came to the conclusion that it is possible to group most of the incidents by certain categories. We recognized four major categories: *homophic* incidents, *antisemtitic* incidents, *sexist* incidents and *racist* incidents. To automatically assign distinctive categories to each incident we implemented a simple algorithm which searches for certain keywords (see *bad_words* below) in the incident description. This way an incidents can be tagged with none or multiple categories ([analyze.py](analyze.py)). We stored these assignements in a seperate table of our SQLite database called *category* with the columns *ID*, *Name* and *Article_ID*.
 
 ```
 bad_words = {
@@ -59,26 +59,26 @@ The extracted places of a description text may look like this.
 [[('Berlin', 'NE'), ('Wedding', 'NE')], [('Bahnhof', 'NN'), ('Osloer', 'ADJA'), ('Straße', 'NN')]]
 ```
 
-You can see each word and its corresponding tag. The places found in this particular description are **Berlin Wedding** and **Bahnhof Osloer Straße**.
+You can see each word and its corresponding Part-Of-Speech tag. The places found in this particular description are **Berlin Wedding** and **Bahnhof Osloer Straße**.
 
 To map things on a certain position on a map you need to have their longitude and latitude coordinates. To get these coordinates from the name of a place, one can use one of the numerous geocoding API's out there. The challenging part was having multiple possible places for one incident, so we needed the API to rate the precision of the things we pass to it. To stick with the example above: The first place **Berlin Wedding** is just the district where the incident occured and the second place is the train station which would be much more interesting to map.
 
 Google's Geocoding API luckily offered this to us. Google's API can actually differentiate between the location types *ROOFTOP*, *RANGE_INTERPOLATED*, *GEOMETRIC_CENTER* and *APPROXIMATE* (descending precision) ([analyze.py](analyze.py)). That gave us the possibility to always pick the most precise location from our database, where we stored all locations inside a new table called *location* with the columns *ID*, *Confidence*, *Lat*, *Lng* and *Article_ID*.
 
 ## Visualization
-To make our data accessible to the outside world we realized a very simple API with only one access route in python using a Web Server Gateway Interface (WSGI) framework called [bottle](http://bottlepy.org/docs/dev/index.html). This access route executes SQL queries to our database to get all incidents, all corresponding locations and their categories and wraps them into an array of JSON objects ([server.py](server.py)) and returns it.
+To make our data accessible to the outside world we realized a very simple API with only one access route in python using a Web Server Gateway Interface (WSGI) framework called [bottle](http://bottlepy.org/docs/dev/index.html). This access route executes SQL queries to our database to get all incidents, their categories and all corresponding locations and wraps them into an array of JSON objects ([server.py](server.py)) and returns it.
 
-To eventually visualize the data on a map we used the open-source JavaScript library [Leaflet](http://leafletjs.com/) in combination with [OpenStreetMap](http://www.openstreetmap.org/#map=5/51.500/-0.100) ([static/js](static/js)). For each incident a circle-marker is drawn with a specific color presenting its category, on a specific location and can be clicked for a small popup to present the incident description and the date when it occured.
+To eventually visualize the data on a map we used the open-source JavaScript library [Leaflet](http://leafletjs.com/) in combination with [OpenStreetMap](http://www.openstreetmap.org/#map=5/51.500/-0.100) ([static/js](static/js)). For each incident a circle-marker is drawn with a specific color presenting its category, on a specific location and can be clicked for a small popup to present the incident description and the date when it occured. Additionally one can filter the shown incidents by years and categories.
 
 ## Problems we faced
 ### Textfile of german nouns
-As described in the chapter **More precise locations** we used a text file containing numerous german nouns, to filter out irrelevant words. The problem we faced was, that we had to create this file all on our own by crawling the [Wiktionary](http://en.wiktionary.org/w/index.php?title=Category%3AGerman_nouns) page and scraping the contents of the category *German nouns*. We just couldn't find anything out of the box that we could have used for our specific needs.
+As described in the chapter [More precise locations](https://github.com/heyarne/OpenData#more-precise-locations) we used a text file containing numerous german nouns, to filter out irrelevant words. The problem we faced was, that we had to create this file all on our own by crawling the [Wiktionary](http://en.wiktionary.org/w/index.php?title=Category%3AGerman_nouns) page and scraping the contents of the category *German nouns*. We just couldn't find anything out of the box that we could have used for our specific needs.
 
 ### Filtering irrelevant words
-Our algorithm at the moment discards words which appear in the german noun list. As already described, such words can be *face* or *woman*. The discarding process works fine for singular word cases, but as soon as they appear in plural they do not match with any nouns in the list anymore and therefore wrongly pass the filter anyway. This is why we had to clean some of the entries in our database by hand afterwards.
+Our algorithm at the moment discards words which appear in the german noun list. As already described, such words can be for example *face* or *woman*. The discarding process works fine for singular word cases, but as soon as they appear in plural they do not match with any nouns in the list anymore and therefore wrongly pass the filter anyway. This is why we had to clean some of the entries in our database by hand afterwards.
 
 ### Mapping incidents
-Quite a lot of the incidents are mapped to the same position, which leads to a stack of markers that leaves markers below unreachable for the user to click. In order to avoid this bug we chose to use the [markercluster](https://github.com/Leaflet/Leaflet.markercluster) plugin which allows spiderfying a cluster of markers when it is clicked.
+Quite a lot of the incidents are mapped to the same position, which leads to a stack of markers that leaves markers below unreachable for the user to click on. In order to avoid this bug we chose to use the [markercluster](https://github.com/Leaflet/Leaflet.markercluster) plugin which allows spiderfying a cluster of markers in order to make every single marker clickable.
 
 <!-- In order to set up the tables you have to create them first. This is done quite easily using the `python` interpreter:
 ```python
