@@ -56,6 +56,7 @@ def articles():
                 }
     conn.close()
 
+    bottle.response.content_type = "application/json"
     return json.dumps([article for article_id, article in articles.items()])
 
 @bottle.get('/static/<filepath:path>')
