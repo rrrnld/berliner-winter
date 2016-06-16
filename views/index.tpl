@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Berliner Winter - Rechte Übergriffe in Berlin 2005 bis 2014</title>
-    <link href='://fonts.googleapis.com/css?family=Libre+Baskerville:400,400italic,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Libre+Baskerville:400,400italic,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="static/css/vendor/leaflet.css" />
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
     <!-- Piwik -->
