@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <title>Berliner Winter - Rechte Übergriffe in Berlin 2005 bis 2014</title>
-    <link href='http://fonts.googleapis.com/css?family=Libre+Baskerville:400,400italic,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <link href='://fonts.googleapis.com/css?family=Libre+Baskerville:400,400italic,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="static/css/vendor/leaflet.css" />
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
     <!-- Piwik -->
     <script type="text/javascript">
@@ -50,8 +50,8 @@
     </nav>
     <div id="map"></div>
 
-    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
-    <script src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
+    <script src="static/js/vendor/leaflet.js"></script>
+    <script src="https://stamen-maps.a.ssl.fastly.net/js/tile.stamen.js?v1.3.0"></script>
 
     <script src="static/jspm_packages/6to5-polyfill.js"></script>
     <script src="static/js/bundle.js"></script>
